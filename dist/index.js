@@ -11,7 +11,7 @@ const webhook_1 = __importDefault(require("./routes/webhook"));
 const billing_1 = __importDefault(require("./routes/billing"));
 const usage_1 = __importDefault(require("./routes/usage"));
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || "3000", 10);
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 app.use((0, cors_1.default)({
@@ -45,6 +45,6 @@ app.use((err, req, res, next) => {
     console.error("Unhandled error:", err);
     res.status(500).json({ error: "Internal server error" });
 });
-app.listen(PORT, () => {
-    console.log(`API running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`API running on port ${PORT}`);
 });

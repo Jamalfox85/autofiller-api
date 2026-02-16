@@ -7,6 +7,19 @@ import webhookRoutes from "./routes/webhook";
 import billingRoutes from "./routes/billing";
 import usageRoutes from "./routes/usage";
 
+import "dotenv/config";
+
+// Debug: Log which env vars are present (not their values)
+console.log("Environment check:", {
+    PORT: !!process.env.PORT,
+    SUPABASE_URL: !!process.env.SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+    STRIPE_SECRET_KEY: !!process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: !!process.env.STRIPE_WEBHOOK_SECRET,
+    APP_URL: !!process.env.APP_URL,
+    ALLOWED_ORIGINS: !!process.env.ALLOWED_ORIGINS,
+});
+
 const app = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
 
