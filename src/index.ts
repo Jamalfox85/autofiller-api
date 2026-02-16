@@ -8,7 +8,7 @@ import billingRoutes from "./routes/billing";
 import usageRoutes from "./routes/usage";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || "3000", 10);
 
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
@@ -57,6 +57,6 @@ app.use(
     },
 );
 
-app.listen(PORT, () => {
-    console.log(`API running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`API running on port ${PORT}`);
 });
