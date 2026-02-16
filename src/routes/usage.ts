@@ -1,9 +1,8 @@
 import { Router, Request, Response } from "express";
-import { getSupabase } from "../lib/supabase";
+import { supabase } from "../lib/supabase";
+import { authenticateUser } from "../middleware/auth";
 
 const router = Router();
-const supabase = getSupabase();
-import { authenticateUser } from "../middleware/auth";
 
 function getPeriodStart(): string {
     const date = new Date();

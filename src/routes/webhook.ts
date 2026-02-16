@@ -1,10 +1,9 @@
 import { Router, Request, Response } from "express";
 import { stripe } from "../lib/stripe";
-import { getSupabase } from "../lib/supabase";
+import { supabase } from "../lib/supabase";
+import Stripe from "stripe";
 
 const router = Router();
-const supabase = getSupabase();
-import Stripe from "stripe";
 
 router.post("/", async (req: Request, res: Response) => {
     const signature = req.headers["stripe-signature"] as string;
