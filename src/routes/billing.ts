@@ -1,9 +1,10 @@
 import { Router, Request, Response } from "express";
 import { stripe } from "../lib/stripe";
-import { supabase } from "../lib/supabase";
-import { authenticateUser } from "../middleware/auth";
+import { getSupabase } from "../lib/supabase";
 
 const router = Router();
+const supabase = getSupabase();
+import { authenticateUser } from "../middleware/auth";
 
 router.post(
     "/portal",

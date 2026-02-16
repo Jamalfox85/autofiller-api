@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { supabase } from "../lib/supabase";
+import { getSupabase } from "../lib/supabase";
+
+const supabase = getSupabase();
 
 export async function authenticateUser(
     req: Request,
