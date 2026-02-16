@@ -1,7 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-
+import { supabase } from "./lib/supabase";
+import { stripe } from "./lib/stripe";
 import checkoutRoutes from "./routes/checkout";
 import webhookRoutes from "./routes/webhook";
 import billingRoutes from "./routes/billing";
@@ -34,9 +35,30 @@ app.use("/webhook", express.raw({ type: "application/json" }), webhookRoutes);
 // All other routes use JSON parsing
 app.use(express.json());
 
-// Health check
+// Health check & Tests
 app.get("/", (req, res) => {
     res.json({ status: "ok", service: "autofill-api" });
+});
+app.get("/test/supabase", async (req, res) => {
+    try {
+        const { data, error } = await supabase.from("profiles").select("count");
+        if (error) throw error;
+        res.json({ status: "ok", message: "Supabase connected" });
+    } catch (err: any) {
+        res.status(500).json({ status: "error", message: err.message });
+    }
+});
+app.get("/test/stripe", async (req, res) => {
+    try {
+        const balance = await stripe.balance.retrieve();
+        res.json({
+            status: "ok",
+            message: "Stripe connected",
+            livemode: balance.livemode,
+        });
+    } catch (err: any) {
+        res.status(500).json({ status: "error", message: err.message });
+    }
 });
 
 // Routes
